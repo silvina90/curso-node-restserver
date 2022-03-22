@@ -2,9 +2,9 @@ const {response} =require('express');
 
 const usuariosGet =(req, res = response)=>{
 
-    const {q, nombre='no name', appkey}= req.query;
+    const {q, nombre='Andres Pinto', appkey}= req.query;
     res.json({
-        msg: 'get API - controlador', 
+        msg: 'get API - Negro salame', 
         q,
         nombre,
         appkey
