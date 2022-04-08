@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const bcrypts = require('bcryptjs');
-const usuario = require('../models/usuario');
+const Usuario = require('../models/usuario');
 
 
 
@@ -8,16 +8,16 @@ const usuario = require('../models/usuario');
 
 const usuariosGet = async (req = request, res = response) => {
     const { limite = 5, desde = 0 } = req.query;
-    const query= {estado:true};
-    const [total, usuarios]= await Promise.all([
+    const query = { estado: true };
+    const [total, usuarios] = await Promise.all([
         usuario.countDocuments(query),
         usuario.find(query)
-        .skip(desde)
-        .limit(limite)
+            .skip(desde)
+            .limit(limite)
     ]);
 
     res.json({
-        total, 
+        total,
         usuarios
     })
 }
@@ -52,15 +52,13 @@ const usuariosPut = async (req, res = response) => {
     res.json({ usuario })
 }
 
-const usuariosDelete =async (req, res = response) => {
-    const {id }=req.params
-
-    // const usuarioD= await usuario.findByIdAndDelete(id);
-
-    const usuarioD= await usuario.findByIdAndUpdate(id, {estado:false});
-
+const usuariosDelete = async (req, res = response) => {
+    const { id } = req.params
+    const usuarioD = await Usuario.findByIdAndUpdate(id, { estado: false });
+    const usuarioAutenticado = req.usuario;
     res.json({
-       usuarioD
+        usuarioD
+
     })
 }
 
